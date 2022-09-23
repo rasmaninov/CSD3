@@ -5,8 +5,20 @@ function setup() {
 
   createCanvas(600, 400);
   background(0);
-  osc = new p5.SinOsc(440);
+
+  //oscillator
+  osc = new p5.SinOsc(600);
   osc.start();
+
+  //delay
+  delay = new p5.Delay();
+  // source, delayTime (in seconds), feedback, filter frequency
+  delay.process(osc, 0.12, .7, 2300);
+  
+  reverb = new p5.Reverb();
+  // connect soundFile to reverb, process w/
+  // 3 second reverbTime, decayRate of 2%
+  reverb.process(osc, 10, 3);
 
 }
 
