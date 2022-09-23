@@ -12,7 +12,7 @@ function setup() {
 
 function draw() {
   // background
-  background(42, 169, 217);
+  background(100, 0, 217);
 
   osc.amp(1);
   osc.freq(440);
