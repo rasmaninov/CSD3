@@ -20,14 +20,8 @@ let x, y;
 function setup() {
   createCanvas(600, 400);
   background(0);
-    connect = new Connect();
-    connect.connectToServer(function() {
-      server = new Server();
-      server.startServer(9000);
-      server.getMessage(function(address,msg) {
-        oscReceiver(address,msg);
-      });
-    });
+
+  socket = io.connect('http://localhost:8080')
 
   frameRate(30);
   osc = new p5.SinOsc(440);
@@ -62,6 +56,14 @@ function draw() {
   osc2.freq(rand2);
 
 
+
+  var data = {
+    freq1 : rand,
+    freq2 : rand2
+  } 
+  socket.emit('frequencie', data)
+  // console.log('freqencies', data);
+  
   ampitudeTest();
 
   ellipse(x,y,25);

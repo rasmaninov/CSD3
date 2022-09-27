@@ -4,11 +4,47 @@ var http = require('http');
 // Path module
 var path = require('path');
 
+
+var osc = require('node-osc');
+var io = require('socket.io')(8080);
+
 // Using the filesystem module
 var fs = require('fs');
 
 var server = http.createServer(handleRequest);
 server.listen(8080);
+
+
+
+
+var oscServer, oscClient;
+
+var isConnected = false;
+
+io.sockets.on('connection', function (socket) {
+	console.log('connection');
+	socket.on("config", function (obj) {
+		isConnected = true;
+    	oscServer = new osc.Server(obj.server.port, obj.server.host);
+	    oscClient = new osc.Client(obj.client.host, obj.client.port);
+	    oscClient.send('/status', socket.sessionId + ' connected');
+		oscServer.on('message', function(msg, rinfo) {
+			socket.emit("message", msg);
+		});
+		socket.emit("connected", 1);
+	});
+ 	socket.on("message", function (obj) {
+		oscClient.send.apply(oscClient, obj);
+  	});
+	socket.on('disconnect', function(){
+		if (isConnected) {
+			oscServer.kill();
+			oscClient.kill();
+		}
+  	});
+});
+
+
 
 console.log('Server started on port 8080');
 
