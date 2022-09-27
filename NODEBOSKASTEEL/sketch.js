@@ -18,6 +18,8 @@ function setup() {
   createCanvas(600, 400);
   background(0);
   frameRate(30);
+
+
   osc1 = new p5.SinOsc(440);
   osc2 = new p5.SinOsc(440);
 
