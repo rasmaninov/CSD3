@@ -38,7 +38,6 @@ function draw() {
   if(x >= height){
     x = 0;
   }
-
 }
 
 function touchStarted(){
