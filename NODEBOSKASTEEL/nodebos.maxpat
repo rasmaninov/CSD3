@@ -82,8 +82,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 57.0, 82.5, 222.0, 35.0 ],
-					"text" : ";\rmax launchbrowser http://localhost:2112"
+					"patching_rect" : [ 57.0, 82.5, 223.0, 35.0 ],
+					"text" : ";\rmax launchbrowser http://localhost:8080"
 				}
 
 			}
@@ -150,7 +150,7 @@
 					"numoutlets" : 1,
 					"offset" : [ 0.0, 0.0 ],
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 427.0, 279.25, 599.0, 441.0 ],
+					"patching_rect" : [ 427.0, 279.25, 400.0, 220.0 ],
 					"viewvisibility" : 1
 				}
 
@@ -166,8 +166,6 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
-						"node_bin_path" : "",
-						"npm_bin_path" : "",
 						"watch" : 1
 					}
 ,
@@ -273,7 +271,7 @@
 			}
 , 			{
 				"name" : "server.js",
-				"bootpath" : "~/Documents/HKU/JAAR3/NODEBOSKASTEEL",
+				"bootpath" : "~/Documents/HKU/JAAR3/CSD3/NODEBOSKASTEEL",
 				"patcherrelativepath" : ".",
 				"type" : "TEXT",
 				"implicit" : 1
