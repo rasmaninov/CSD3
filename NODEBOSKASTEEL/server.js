@@ -1,33 +1,73 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
+
 // HTTP Portion
-var http = require('http').Server(app);
+var server = require('http').Server(app);
 // Path module
 var path = require('path');
-const io = require('socket.io')(http);
 
+
+// const maxApi = require("./package.json");
+// for socketIOclient
+  
+  const maxApi = require("max-api");
+
+// const ioclient = require('socket.io-client');
+
+ 
+const io = require('socket.io')(server);
+let clients = {};
+let sendSocket = {};
 // Using the filesystem module
 var fs = require('fs');
+// http.listen(8080, () => {
+//     console.log('server hoort je lul op 3000');
+// });
 
-// // HIER WAS IK
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html'); 
+// var server = http.createServer(handleRequest);
+server.listen(8080,_ => {
+  console.log("Server staat aan!");
 });
+
+app.use(express.static(path.join(__dirname,'/')));
+
+app.use(function(req,res,next) {
+  let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  res.status(400).send("de pagina bestaat niet, sukkel");
+});
+// // HIER WAS IK
+// app.get('/', (req, res) => {
+//     res.sendFile(__dirname + '/index.html'); 
+// });
 
 io.on('connection', (socket) => {
   console.log('connected');
-  io.on('disconnect',function(){
+  clients[socket.id] = socket;
+  console.log("id 1:",socket.id);
+
+  socket.on('phone',data => {
+    console.log("id 2:",data);
+    sendSocket[data] = clients[data];
+  })
+  socket.on('disconnect',function(){
     console.log('disconnected');
   })
-  io.on('message', (msg) => {
+  socket.on('message', (msg) => {
     io.emit('message', msg)
   })    
 });
-    
-http.listen(8080, () => {
-    console.log('server hoort je lul op 3000');
-});
 
-console.log('Server started on port 8080');
+maxApi.addHandler('message',(msg) => {
+  // console.log("message:",msg,sendSocket);
+  for (let i in sendSocket) {
+    console.log(i);
+    sendSocket[i].emit('message',msg);
+  }
+  
+});     
+
+
+// console.log('Server started on port 8080');
 
 // function handleRequest(req, res) {
 //   // What did we request?
@@ -67,3 +107,4 @@ console.log('Server started on port 8080');
 //     }
 //   );
 // }
+

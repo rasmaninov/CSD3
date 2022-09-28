@@ -1,6 +1,20 @@
+let message; 
+
+const socket = io.connect();
+console.log(socket);
+  socket.on('connect', _=> {
+    console.log("verbonden!");
+    socket.emit('phone',socket.id);
+  })   
+  socket.on('message', function(msg){
+    // document.querySelector('#message').innerText = msg;
+    message = msg;
+  });
+
 let x = 20;
 let osc;
 let sound = false;
+
 
 function setup() {
   createCanvas(600, 400);
@@ -8,11 +22,17 @@ function setup() {
   osc = new p5.SinOsc(440);
   osc.start();
 
+  // document.addEventListener('DOMContentLoaded', function() {
+   
+  // });
+
 }
 
 function draw() {
   // background
-  background(42, 169, 217);
+  background(42, 169, message);
+
+  // console.log(message);
 
   osc.amp(1);
   osc.freq(440);

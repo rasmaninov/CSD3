@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1055.0, 87.0, 475.0, 577.0 ],
+		"rect" : [ 683.0, 87.0, 723.0, 779.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -58,7 +58,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 314.102603793144226, 194.871819496154785, 50.0, 22.0 ]
+					"patching_rect" : [ 306.641060471534729, 194.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -69,7 +69,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 275.641060471534729, 242.307722926139832, 74.0, 22.0 ],
+					"patching_rect" : [ 306.641060471534729, 226.307722926139832, 74.0, 22.0 ],
 					"text" : "message $1"
 				}
 
@@ -117,8 +117,6 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 0,
 						"defer" : 0,
-						"node_bin_path" : "",
-						"npm_bin_path" : "",
 						"watch" : 1
 					}
 ,
@@ -212,18 +210,6 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-18",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "jit_matrix", "bang", "" ],
-					"patching_rect" : [ 535.0, 234.0, 147.0, 22.0 ],
-					"text" : "jit.world drawn @enable 1"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"bgmode" : 0,
 					"border" : 0,
 					"clickthrough" : 0,
@@ -237,7 +223,7 @@
 					"numoutlets" : 1,
 					"offset" : [ 0.0, 0.0 ],
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 428.0, 314.725186109542847, 400.0, 220.0 ],
+					"patching_rect" : [ 261.818180322647095, 322.125186145305634, 400.0, 220.0 ],
 					"viewvisibility" : 1
 				}
 
@@ -253,24 +239,10 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
-						"node_bin_path" : "",
-						"npm_bin_path" : "",
 						"watch" : 1
 					}
 ,
 					"text" : "node.script server.js @autostart 1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"attr" : "enable",
-					"id" : "obj-21",
-					"maxclass" : "attrui",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 535.0, 204.0, 150.0, 22.0 ]
 				}
 
 			}
@@ -324,15 +296,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
-					"source" : [ "obj-21", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
-					"midpoints" : [ 236.0, 306.0, 414.0, 306.0, 414.0, 273.0, 437.5, 273.0 ],
+					"midpoints" : [ 236.0, 306.0, 414.0, 306.0, 414.0, 273.0, 271.318180322647095, 273.0 ],
 					"source" : [ "obj-3", 1 ]
 				}
 
