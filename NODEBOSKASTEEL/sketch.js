@@ -1,8 +1,8 @@
 let x = 20;
 let osc;
 let sound = false;
-function setup() {
 
+function setup() {
   createCanvas(600, 400);
   background(0);
   osc = new p5.SinOsc(440);

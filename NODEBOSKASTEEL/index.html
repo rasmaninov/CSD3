@@ -11,9 +11,21 @@
       margin: 0;
     }
   </style>
-  <script src="../p5.js"></script>
-  <script src="../addons/p5.sound.js"></script>
-  <script src="sketch.js"></script>
+  <script src="/Library/p5.js"></script>
+  <script src="/Library/addons/p5.sound.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/socketio-client.js"></script>
+  <script src="/sketch.js"></script>
+  <script>
+  
+    document.addEventListener('DOMContentLoaded', function() {
+    const socket = io();   
+    socket.on('message', function(msg){
+      document.querySelector('#message').innerText = msg;
+    });
+  });
+
+</script>
 </head>
 
 <body>
