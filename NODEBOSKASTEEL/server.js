@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 
   all_divices[IP] = socket.id;
   IP = IP + 1;
-  if (IP > 1){
+  if (IP > 0){
     IP = 0;
   }
   socket.emit('phoneIDs', all_divices);
@@ -63,37 +63,46 @@ io.on('connection', (socket) => {
   })
 
   // messages van sockets
-  socket.on('message', (msg) => {
-    // console.log('ip' , msg);
-    io.emit('message', msg)
+  socket.on('scale1', (msg) => {
+    io.emit('scale1', msg)
   })  
   
-  socket.on('poepje', (msg) => {
-    io.emit('poepje', msg)
+  socket.on('scale2', (msg) => {
+    io.emit('scale2', msg)
   }) 
 
+  socket.on('scale3', (msg) => {
+    io.emit('scale3', msg)
+  })  
+  
+  socket.on('scale4', (msg) => {
+    io.emit('scale4', msg)
+  }) 
 });
 
-maxApi.addHandler('message',(msg) => {
+maxApi.addHandler('scale1',(msg) => {
   // console.log("message:",msg,sendSocket);
   for (let i in sendSocket) {
     console.log(i);
-    sendSocket[i].emit('message',msg);
+    sendSocket[i].emit('scale1',msg);
     // sendSocket[i].emit('poepje',msg);
   }
 });    
 
-maxApi.addHandler('poepje',(msg) => {
-  // console.log("message:",msg,sendSocket);
+maxApi.addHandler('scale2',(msg) => {
   for (let i in sendSocket) {
-    // console.log(i);
-    sendSocket[i].emit('poepje',msg);
-    // sendSocket[i].emit('poepje',msg);
+    sendSocket[i].emit('scale2',msg);
   }
 }); 
 
-function wrap(val){
-  if (val > 7){
-    val = 0
+maxApi.addHandler('scale3',(msg) => {
+  for (let i in sendSocket) {
+    sendSocket[i].emit('scale3',msg);
   }
-}
+}); 
+
+maxApi.addHandler('scale4',(msg) => {
+  for (let i in sendSocket) {
+    sendSocket[i].emit('scale4',msg);
+  }
+}); 
