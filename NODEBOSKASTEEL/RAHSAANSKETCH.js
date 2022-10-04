@@ -41,7 +41,7 @@ let bc = 0;
 let amount = 2000;
 let xoff = 02;
 let radius;
-let startRadius = 10000;
+let startRadius = 100;
 let modDepth;
 let movingA = [];
 let movingSize = 10;
@@ -63,7 +63,7 @@ function setup() {
 
 
 function draw() {
-  scale(2)
+  scale(scale1)
   visual();
 }
 
@@ -75,13 +75,15 @@ function visual(){
   if (micLevel > 1){
     micLevel = 1;
   }
+
   movingA.push(micLevel);
   movingA.shift();
   for(i = 0; i < movingA.length; i++){
     sum += movingA[i];
+
   }
   modDepth = (sum / movingA.length) * 2;
-  // console.log(modDepth);
+  console.log(modDepth);
   if (modDepth > 1){
     modDepth = 1;
   }
@@ -114,10 +116,7 @@ function visual(){
   endShape(CLOSE);
   // console.log('noiseV' + noiseV);
 
-
-
   yoff += 0.005;
-
 }
 
 function touchStarted(){
