@@ -41,10 +41,10 @@ let bc = 0;
 let amount = 2000;
 let xoff = 02;
 let radius;
-let startRadius = 750;
+let startRadius = 10000;
 let modDepth;
 let movingA = [];
-let movingSize = 1250;
+let movingSize = 10;
 
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
@@ -63,6 +63,11 @@ function setup() {
 
 
 function draw() {
+  scale(2)
+  visual();
+}
+
+function visual(){
   let xStart, yStart;
   let sum = 0;
 
@@ -72,12 +77,11 @@ function draw() {
   }
   movingA.push(micLevel);
   movingA.shift();
-  // console.log(movingA);
   for(i = 0; i < movingA.length; i++){
     sum += movingA[i];
   }
   modDepth = (sum / movingA.length) * 2;
-  console.log(modDepth);
+  // console.log(modDepth);
   if (modDepth > 1){
     modDepth = 1;
   }
