@@ -34,9 +34,6 @@ console.log(socket);
   });
 //=================================================================================
 
-
-
-
 let yoff = 0;
 let sound = false;
 let mic;
@@ -80,6 +77,7 @@ function draw() {
     sum += movingA[i];
   }
   modDepth = (sum / movingA.length) * 2;
+  console.log(modDepth);
   if (modDepth > 1){
     modDepth = 1;
   }
@@ -97,7 +95,7 @@ function draw() {
   translate(width/2, height/2);
   beginShape();
   for( i = 0.0 ; i <= TWO_PI; i += TWO_PI / amount){
-    noiseV = map(noise(cos(i)+1*modDepth, sin(i)+1*modDepth, yoff), 0.0, 1, 0, micLevel);
+    noiseV = map(noise(cos(i)+1*modDepth, sin(i)+1*modDepth, yoff), 0.0, 1, 0, modDepth);
     // a = cos(-i) * radius * (micLevel + 1);
     // b = sin(-i) * radius * (micLevel + 1);
     //
@@ -111,11 +109,10 @@ function draw() {
   }
   endShape(CLOSE);
   // console.log('noiseV' + noiseV);
+
+
+
   yoff += 0.005;
-}
-
-function mainVisual(){
-
 
 }
 
