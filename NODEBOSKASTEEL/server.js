@@ -6,55 +6,72 @@ var server = require('http').Server(app);
 // Path module
 var path = require('path');
 
-
-// const maxApi = require("./package.json");
-// for socketIOclient
-  
-  const maxApi = require("max-api");
-
-// const ioclient = require('socket.io-client');
-
+// voor de connectie met MAX
+const maxApi = require("max-api");
  
+// include socket
 const io = require('socket.io')(server);
+
+// maak array met data voor apperaten die verbinden
 let clients = {};
+
+let all_divices = {};
+var IP = 0;
+
+// maak een array met de IP addressen die van alle apperaten binnen komt
+// hiermee kunnen we onderscheiden van verschillende apperaten
 let sendSocket = {};
 // Using the filesystem module
 var fs = require('fs');
-// http.listen(8080, () => {
-//     console.log('server hoort je lul op 3000');
-// });
 
-// var server = http.createServer(handleRequest);
+// server luistert
 server.listen(8080,_ => {
   console.log("Server staat aan!");
 });
 
+// functie voor de paden van de includes in de Iindex.html
 app.use(express.static(path.join(__dirname,'/')));
 
+//  maak een URL aan voor de pagina als deze bestaat
 app.use(function(req,res,next) {
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   res.status(400).send("de pagina bestaat niet, sukkel");
 });
-// // HIER WAS IK
-// app.get('/', (req, res) => {
-//     res.sendFile(__dirname + '/index.html'); 
-// });
 
+// maak connectie met sockets
 io.on('connection', (socket) => {
   console.log('connected');
   clients[socket.id] = socket;
   console.log("id 1:",socket.id);
 
+  all_divices[IP] = socket.id;
+  IP = IP + 1;
+  if (IP > 1){
+    IP = 0;
+  }
+  socket.emit('phoneIDs', all_divices);
+  console.log("all IDs",all_divices);
+
   socket.on('phone',data => {
     console.log("id 2:",data);
     sendSocket[data] = clients[data];
   })
+
+  
   socket.on('disconnect',function(){
     console.log('disconnected');
   })
+
+  // messages van sockets
   socket.on('message', (msg) => {
+    // console.log('ip' , msg);
     io.emit('message', msg)
-  })    
+  })  
+  
+  socket.on('poepje', (msg) => {
+    io.emit('poepje', msg)
+  }) 
+
 });
 
 maxApi.addHandler('message',(msg) => {
@@ -62,49 +79,21 @@ maxApi.addHandler('message',(msg) => {
   for (let i in sendSocket) {
     console.log(i);
     sendSocket[i].emit('message',msg);
+    // sendSocket[i].emit('poepje',msg);
   }
-  
-});     
+});    
 
+maxApi.addHandler('poepje',(msg) => {
+  // console.log("message:",msg,sendSocket);
+  for (let i in sendSocket) {
+    // console.log(i);
+    sendSocket[i].emit('poepje',msg);
+    // sendSocket[i].emit('poepje',msg);
+  }
+}); 
 
-// console.log('Server started on port 8080');
-
-// function handleRequest(req, res) {
-//   // What did we request?
-//   var pathname = req.url;
-//   console.log('piemels');
-
-//   // If blank let's ask for index.html
-//   if (pathname == '/') {
-//     pathname = '/index.html';
-//   }
-
-//   // Ok what's our file extension
-//   var ext = path.extname(pathname);
-
-//   // Map extension to file type
-//   var typeExt = {
-//     '.html': 'text/html',
-//     '.js':   'text/javascript',
-//     '.css':  'text/css'
-//   };
-//   // What is it?  Default to plain text
-
-//   var contentType = typeExt[ext] || 'text/plain';
-
-//   // User file system module
-//   fs.readFile(__dirname + pathname,
-//     // Callback function for reading
-//     function (err, data) {
-//       // if there is an error
-//       if (err) {
-//         res.writeHead(500);
-//         return res.end('Error loading ' + pathname);
-//       }
-//       // Otherwise, send the data, the contents of the file
-//       res.writeHead(200,{ 'Content-Type': contentType });
-//       res.end(data);
-//     }
-//   );
-// }
-
+function wrap(val){
+  if (val > 7){
+    val = 0
+  }
+}
