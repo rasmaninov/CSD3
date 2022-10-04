@@ -3,7 +3,6 @@ let scale2 = 1;
 let scale3 = 1; 
 let scale4 = 1; 
 
-let poepje = 192;
 let IPconnection = {};
 
 const socket = io.connect();
