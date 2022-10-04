@@ -47,17 +47,14 @@ function setup() {
 }
 
 function draw() { 
-  // if (IPconnection[0] == socket.id){
+  if (IPconnection[0] == socket.id){
     scale(scale1,scale2);
     visual(1, 200, 200)
-  // }
-  // if (IPconnection[1] == socket.id){
-  //   scale(message);
-  //   visual(100, 20, 100)
-  // }
-  // // visual(0, 20, 200)
-
-  
+  }
+  if (IPconnection[1] == socket.id){
+    scale(message);
+    visual(100, 20, 100)
+  }
 }
 
 function visual( c1,  c2,  c3){

@@ -57,20 +57,17 @@ function setup() {
   for(i = 0; i < movingSize; i++){
     movingA.push(0);
   }
-  // frameRate(1);
 }
 
 
 
 function draw() {
-  scale(scale1)
-  visual();
+  scale(scale1,scale2)
+  visual(scale3,scale4);
 }
 
-function visual(){
-  let xStart, yStart;
+function visual(bignessXInput, bignessYInput){
   let sum = 0;
-
   micLevel = mic.getLevel() * 2;
   if (micLevel > 1){
     micLevel = 1;
@@ -87,17 +84,12 @@ function visual(){
   if (modDepth > 1){
     modDepth = 1;
   }
-  // modDepth = 0;
-  // console.log('mod ' + modDepth);
-  //
+
   radius = startRadius + (startRadius * modDepth);
-  // radius = startRadius;
-  // console.log('radius ' + radius);
 
   stroke(0);
   strokeWeight(1);
   fill(255,40);
-  // fill(0);
   translate(width/2, height/2);
   beginShape();
   for( i = 0.0 ; i <= TWO_PI; i += TWO_PI / amount){
@@ -111,11 +103,9 @@ function visual(){
     b = sin(-i) * radius * noiseV;
 
 
-    vertex(a,b);
+    vertex(a * bignessXInput,b * bignessYInput);
   }
   endShape(CLOSE);
-  // console.log('noiseV' + noiseV);
-
   yoff += 0.005;
 }
 
