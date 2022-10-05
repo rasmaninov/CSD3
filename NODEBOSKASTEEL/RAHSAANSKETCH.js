@@ -1,7 +1,7 @@
-let scale1 = 1; 
-let scale2 = 1; 
-let scale3 = 1; 
-let scale4 = 1; 
+let scale1 = 1;
+let scale2 = 1;
+let scale3 = 1;
+let scale4 = 1;
 
 let IPconnection = {};
 
@@ -12,7 +12,7 @@ console.log(socket);
     console.log("verbonden!");
     // stuur ID aan aperaat dat is verbonden
     socket.emit('phone',socket.id);
-  })   
+  })
 
   // ontvang IP van alle connecties die worden gemaakt
   socket.on('phoneIDs', (arg)=>{
@@ -41,10 +41,10 @@ let bc = 0;
 let amount = 2000;
 let xoff = 02;
 let radius;
-let startRadius = 100;
+let startRadius = 750;
 let modDepth;
 let movingA = [];
-let movingSize = 10;
+let movingSize = 12500;
 
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
@@ -53,11 +53,10 @@ function setup() {
 
   mic = new p5.AudioIn();
   mic.start();
-  // movingA.length = 50;
   for(i = 0; i < movingSize; i++){
     movingA.push(0);
   }
-  // frameRate(1);
+  background(0);
 }
 
 
@@ -94,9 +93,9 @@ function visual(){
   // radius = startRadius;
   // console.log('radius ' + radius);
 
-  stroke(0);
+  stroke(255);
   strokeWeight(1);
-  fill(255,40);
+  fill(0,20);
   // fill(0);
   translate(width/2, height/2);
   beginShape();
