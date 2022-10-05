@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 779.0, 87.0, 627.0, 779.0 ],
+		"rect" : [ 34.0, 87.0, 1372.0, 779.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,6 +40,7 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+<<<<<<< HEAD
 					"id" : "obj-166",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
@@ -59,6 +60,16 @@
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 908.0, 425.0, 37.0, 22.0 ],
 					"text" : "*~ 25"
+=======
+					"format" : 6,
+					"id" : "obj-20",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 546.301330864429474, 186.380953311920166, 50.0, 22.0 ]
+>>>>>>> e32016e5fe8128ed31c401ee03be23c21ffbba15
 				}
 
 			}
@@ -296,9 +307,21 @@
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
+<<<<<<< HEAD
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 369.0, 592.0, 50.0, 22.0 ]
+=======
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 58.5, 283.0, 187.0, 22.0 ],
+					"saved_object_attributes" : 					{
+						"autostart" : 1,
+						"defer" : 0,
+						"watch" : 1
+					}
+,
+					"text" : "node.script server.js @autostart 1"
+>>>>>>> e32016e5fe8128ed31c401ee03be23c21ffbba15
 				}
 
 			}
