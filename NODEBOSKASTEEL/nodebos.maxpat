@@ -95,7 +95,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 2330.25, 844.25, 50.0, 50.0 ],
-					"text" : "set -5.180423"
+					"text" : "set -79.960534"
 				}
 
 			}
@@ -548,7 +548,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 955.070650666952133, 687.824945151805878, 50.0, 36.0 ],
-					"text" : "-2.032861"
+					"text" : "-60.247758"
 				}
 
 			}
@@ -1365,18 +1365,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 57.0, 32.083333333333336, 192.0, 31.0 ],
 					"text" : "Launch the webpage"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-19",
-					"linecount" : 8,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 337.0, 23.25, 491.0, 131.0 ],
-					"text" : "This patch receives gestural data from a simple web interface. To get started, start the script, then click the button or open a browser to localhost:2112\n\nDrawings made in the browser window will be echoed to an OpenGL drawing in Max. To see how the incoming data is parsed out, check the \"convert_to_GL\" subpatcher.\n\nThis gesture data is also passed along to a simple synth patch in the \"convert_to_Audio\" subpatcher.\n"
 				}
 
 			}
