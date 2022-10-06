@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 
   all_divices[IP] = socket.id;
   IP = IP + 1;
-  if (IP > 0){
+  if (IP > 1){
     IP = 0;
   }
   socket.emit('phoneIDs', all_divices);
@@ -78,6 +78,9 @@ io.on('connection', (socket) => {
   socket.on('scale4', (msg) => {
     io.emit('scale4', msg)
   }) 
+  socket.on('snelheidGran', (msg) => {
+    io.emit('snelheidGran', msg)
+  })
 });
 
 maxApi.addHandler('scale1',(msg) => {
@@ -104,5 +107,11 @@ maxApi.addHandler('scale3',(msg) => {
 maxApi.addHandler('scale4',(msg) => {
   for (let i in sendSocket) {
     sendSocket[i].emit('scale4',msg);
+  }
+}); 
+
+maxApi.addHandler('snelheidGran',(msg) => {
+  for (let i in sendSocket) {
+    sendSocket[i].emit('snelheidGran',msg);
   }
 }); 
