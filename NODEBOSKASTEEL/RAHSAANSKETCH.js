@@ -44,7 +44,7 @@ let radius;
 let startRadius = 750;
 let modDepth;
 let movingA = [];
-let movingSize = 12500;
+let movingSize = 125;
 
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
@@ -54,7 +54,7 @@ function setup() {
   mic = new p5.AudioIn();
   mic.start();
   for(i = 0; i < movingSize; i++){
-    movingA.push(0);
+    movingA.push(0.8);
   }
   background(0);
 }
@@ -75,7 +75,7 @@ function visual(){
     micLevel = 1;
   }
 
-  movingA.push(micLevel);
+  movingA.push(0.5);
   movingA.shift();
   for(i = 0; i < movingA.length; i++){
     sum += movingA[i];
@@ -89,7 +89,9 @@ function visual(){
   // modDepth = 0;
   // console.log('mod ' + modDepth);
   //
-  radius = startRadius + (startRadius * modDepth);
+  // radius = startRadius + (startRadius * modDepth);
+  radius = 1250;
+
   // radius = startRadius;
   // console.log('radius ' + radius);
 
