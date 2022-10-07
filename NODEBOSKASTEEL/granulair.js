@@ -40,6 +40,8 @@ console.log(socket);
   });
 //=================================================================================
 
+
+
 let yoff = 0;
 let sound = false;
 let mic;
@@ -74,16 +76,15 @@ function setup() {
     cnv.touchStarted(userStartAudio);
     cnv.mousePressed(userStartAudio);
     // cnv.mousePressed(playSound);
-
     frameRate(30);
-
-
   mic = new p5.AudioIn();
   mic.start();
   // movingA.length = 50;
   for(i = 0; i < movingSize; i++){
     movingA.push(0);
   }
+
+  
 }
 
 function draw() {
@@ -148,7 +149,7 @@ function visual(bignessXInput, bignessYInput){
 function granulair(speed){
     if (frameCount % speed == 0){
       samp.play();
-      samp.jump(random(10), random(0.5))
+      samp.jump(random(10), random(0.5  ))
   }
 }
 
