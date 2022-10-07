@@ -1,4 +1,3 @@
-// function makeIPs(){
 let scale1 = 1; 
 let scale2 = 1; 
 let scale3 = 1; 
@@ -55,168 +54,239 @@ socket.on('connect', _=> {
 
 let sketch1;
  
-
-
 function setup(){
   console.log("idserver" , IPconnection[0], "IDSKETCH" , socketid)
   
   if (IPconnection[0] == socketid){
-    sketch1 = p5(visual(8, 7));
+    sketch1 = new p5(phone1(color(100,200,0)));
   }
 
-  if (IPconnection[1] == socketid){
-    sketch1 = p5(makeSketch('Blue'));
+  else if (IPconnection[1] == socketid){
+    // sketch1 = new p5(makeSketch("red"));
+    sketch1 = new p5(phone2(color(200,0,100)));
   }
+}
 
+function draw() { 
+  sketch1.OSC(scale1,scale2,scale3,scale4);
 }
 
 
-function makeSketch(...colorArgs) {
+
+
+
+
+
+
+
+
+function phone1(color) {
+  let cvn;
+  let yoff = 0;
+  let sound = false;
+  let mic;
+  let bc = 0;
+  let amount = 2000;
+  let xoff = 02;
+  let radius;
+  let startRadius = 500;
+  let modDepth;
+  let movingA = [];
+  let movingSize = 50;
+
+  let env;
+  let grains = 20;
+
+  let samp = [];
+
+  let index = 0;
+
+  let val1;
+  let val2;
+  let val3;
+  let val4;
   return (p) => {
-    let bgColor;
-    let black;
-    let c;
+    p.preload = () => {
+      samp = p.loadSound('audio_samples/nosie.wav');
+    }
+
+    p.OSC = (OSC1,OSC2,OSC3,OSC4) =>{
+      val1 = OSC1;
+      val2 = OSC2;
+      val3 = OSC3;
+      val4 = OSC4;
+    }
+
     p.setup = () => {
-      c = p.createCanvas(200, 200);
-      bgColor = p.color(...colorArgs);
-      black = p.color(0);
-      
-      c.elt.addEventListener('mouseenter', () => {
-        p.loop();
-      });
-      c.elt.addEventListener('mouseleave', () => {
-        p.noLoop();
-      });
-      
-      let bounds = c.elt.getBoundingClientRect();
-      
-      // Just in case the mouse is already over the canvas when it is created.
-      // This is also how you would use getBoundingClientRect from the draw()
-      // and mouseMoved() functions instead of the mouseenter/mouseleave events.
-      if (p.winMouseX < bounds.left ||
-        p.winMouseX > bounds.right ||
-        p.minMouseY < bounds.top ||
-        p.winMouseY > bounds.bottom) {
-        
-        p.noLoop();
+      cnv = p.createCanvas(p.windowWidth, p.windowHeight)
+      cnv.touchStarted(userStartAudio);
+      cnv.mousePressed(userStartAudio);
+
+      mic = new p5.AudioIn();
+      mic.start();
+
+      for(i = 0; i < movingSize; i++){
+        movingA.push(0);
       }
     };
     
     p.draw = () => {
-      p.background(p.lerpColor(
-        bgColor,
-        black,
-        p.abs((p.frameCount % 240 - 120) / 120)
-      ));
-      
-      
-      let bounds = c.elt.getBoundingClientRect();
-      p.fill('white');
-      p.noStroke();
-      p.text(`${p.winMouseX}, ${p.winMouseY} :: ${bounds.left}, ${bounds.top}, ${bounds.right}, ${bounds.bottom}`, 10, 10); 
+      let sum = 0;
+      micLevel = mic.getLevel() * 2;
+      if (micLevel > 1){
+        micLevel = 1;
+      }
+      movingA.push(micLevel);
+      movingA.shift();
+      for(i = 0; i < movingA.length; i++){
+        sum += movingA[i];
+      }
+
+      modDepth = (sum / movingA.length) * 2;
+      if (modDepth > 1){
+        modDepth = 1;
+      }
+
+      radius = startRadius + (startRadius * modDepth);
+
+      cnv.stroke(0);
+      cnv.strokeWeight(1);
+      cnv.fill(color);
+      cnv.translate(width/2 + val3 , height/2 + val4);
+      p.beginShape();
+      for( i = 0.0 ; i <= TWO_PI; i += TWO_PI / amount){
+        noiseV = p.map(noise(cos(i)+1*modDepth, sin(i)+1*modDepth, yoff), 0.0, 1, 0, modDepth);
+
+        a = p.cos(-i) * radius * noiseV;
+        b = p.sin(-i) * radius * noiseV;
+
+
+        p.vertex(a * val1,b * val2);
+      }
+      p.endShape(CLOSE);
+      yoff += 0.005;
+    }
+
+    p.touchStarted = () => {
+      if(sound){
+        sound = false;
+        console.log('stop');
+        mic.stop();
+    
+      } else if(!sound){
+        // background(255);
+        sound = true;
+        console.log('start');
+        mic.start();
+      }
     }
   };
 }
 
-function visual(){
-  p.setup = () => {
-    let cnv = createCanvas(windowWidth, windowHeight);
+
+function phone2(color) {
+  let cvn;
+  let yoff = 0;
+  let sound = false;
+  let mic;
+  let bc = 0;
+  let amount = 2000;
+  let xoff = 02;
+  let radius;
+  let startRadius = 500;
+  let modDepth;
+  let movingA = [];
+  let movingSize = 50;
+
+  let env;
+  let grains = 20;
+
+  let samp = [];
+
+  let index = 0;
+
+  let val1;
+  let val2;
+  let val3;
+  let val4;
+  return (p) => {
+    p.preload = () => {
+      samp = p.loadSound('audio_samples/nosie.wav');
+    }
+
+    p.OSC = (OSC1,OSC2,OSC3,OSC4) =>{
+      val1 = OSC1;
+      val2 = OSC2;
+      val3 = OSC3;
+      val4 = OSC4;
+    }
+
+    p.setup = () => {
+      cnv = p.createCanvas(p.windowWidth, p.windowHeight)
       cnv.touchStarted(userStartAudio);
       cnv.mousePressed(userStartAudio);
-      // cnv.mousePressed(playSound);
-  
-      frameRate(30);
-  
-  
-    mic = new p5.AudioIn();
-    mic.start();
-    // movingA.length = 50;
-    for(i = 0; i < movingSize; i++){
-      movingA.push(0);
-    }
-  }
-  
-  p.setup = () => {
-      // background(0,0,200);
-      if (IPconnection[0] == socket.id){
-        scale(2,2);
-        visual(8, 7)
-        granulair(snelheidGran);
-      }
-      if (IPconnection[1] == socket.id){
-        scale(0.1,0.1);
-        visual(90, 65)
-        granulair(snelheidGran);
-      }
-  }
-  
-  
-  
-  
-  
-  function visual(bignessXInput, bignessYInput){
-    let sum = 0;
-    micLevel = mic.getLevel() * 2;
-    if (micLevel > 1){
-      micLevel = 1;
-    }
-    movingA.push(micLevel);
-    movingA.shift();
-    for(i = 0; i < movingA.length; i++){
-      sum += movingA[i];
-    }
-  
-    modDepth = (sum / movingA.length) * 2;
-    if (modDepth > 1){
-      modDepth = 1;
-    }
-  
-    radius = startRadius + (startRadius * modDepth);
-  
-    stroke(0);
-    strokeWeight(1);
-    fill(255,40);
-    translate(width/2, height/2);
-    beginShape();
-    for( i = 0.0 ; i <= TWO_PI; i += TWO_PI / amount){
-      noiseV = map(noise(cos(i)+1*modDepth, sin(i)+1*modDepth, yoff), 0.0, 1, 0, modDepth);
-      // a = cos(-i) * radius * (micLevel + 1);
-      // b = sin(-i) * radius * (micLevel + 1);
-      //
-      // a = a * (noiseV +1);
-      // b = b * (noiseV +1);
-      a = cos(-i) * radius * noiseV;
-      b = sin(-i) * radius * noiseV;
-  
-  
-      vertex(a * bignessXInput,b * bignessYInput);
-    }
-    endShape(CLOSE);
-    yoff += 0.005;
-  }
-  
-  function granulair(speed){
-      if (frameCount % speed == 0){
-        samp.play();
-        samp.jump(random(10), random(0.5  ))
-    }
-  }
-  
-  
-  
-  function touchStarted(){
-    if(sound){
-      sound = false;
-      console.log('stop');
-      mic.stop();
-  
-    } else if(!sound){
-      // background(255);
-      sound = true;
-      console.log('start');
-      mic.start();
-    }
-  }
-  
 
+      mic = new p5.AudioIn();
+      mic.start();
+
+      for(i = 0; i < movingSize; i++){
+        movingA.push(0);
+      }
+    };
+    
+    p.draw = () => {
+      let sum = 0;
+      micLevel = mic.getLevel() * 2;
+      if (micLevel > 1){
+        micLevel = 1;
+      }
+      movingA.push(micLevel);
+      movingA.shift();
+      for(i = 0; i < movingA.length; i++){
+        sum += movingA[i];
+      }
+
+      modDepth = (sum / movingA.length) * 2;
+      if (modDepth > 1){
+        modDepth = 1;
+      }
+
+      radius = startRadius + (startRadius * modDepth);
+
+      cnv.stroke(0);
+      cnv.strokeWeight(1);
+      cnv.fill(color);
+      cnv.translate(width/2 + val3 , height/2 + val4);
+      p.beginShape();
+      for( i = 0.0 ; i <= TWO_PI; i += TWO_PI / amount){
+        noiseV = p.map(noise(cos(i)+1*modDepth, sin(i)+1*modDepth, yoff), 0.0, 1, 0, modDepth);
+
+        a = p.cos(-i) * radius * noiseV;
+        b = p.sin(-i) * radius * noiseV;
+
+
+        p.vertex(a * val1,b * val2);
+      }
+      p.endShape(CLOSE);
+      yoff += 0.005;
+    }
+
+    p.touchStarted = () => {
+      if(sound){
+        sound = false;
+        console.log('stop');
+        mic.stop();
+    
+      } else if(!sound){
+        // background(255);
+        sound = true;
+        console.log('start');
+        mic.start();
+      }
+    }
+  };
 }
+
+
+
+

@@ -101,10 +101,6 @@ function draw() {
     }
 }
 
-
-
-
-
 function visual(bignessXInput, bignessYInput){
   let sum = 0;
   micLevel = mic.getLevel() * 2;
