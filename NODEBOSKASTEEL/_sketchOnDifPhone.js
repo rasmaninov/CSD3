@@ -9,28 +9,36 @@ let IP;
 
 let snelheidGran = 10; 
 
-const socket = io.connect();
-
 let IPconnection = {}
+
+var connected = false;
 let socketid;
 
-  // connect met socket
-socket.on('connect', _=> {
-  socketid = socket.id;
-  // console.log(socketid)
-  console.log("verbonden!");
 
+
+function OSCdingen(socket){
+  
+   // connect met socket
+   socket.on('connect', _=> {
+    socketid = socket.id;
+    // console.log(socketid)
+    console.log("verbonden!");
+      connected = true;
+
+        
       // ontvang IP van alle connecties die worden gemaakt
-    socket.on('phoneIDs', (arg)=>{
+      socket.on('phoneIDs', (arg)=>{
       IPconnection = arg;
-        // console.log(IPconnection)
-    });
-
+      connect_sockets();
+      });
+        
       // stuur ID aan aperaat dat is verbonden
     socket.emit('phone',socket.id);
     })   
 
-
+    if (connected === true){
+      console.log("JA",socketid)
+    }
 
     // ontvang message van MAX
     socket.on('scale1', function(msg){
@@ -53,38 +61,66 @@ socket.on('connect', _=> {
     socket.on('micInput', function(msg){
       micInput = msg;
     });
-    
+
+
+    return socketid;
+  }
+
 
   //=================================================================================
 
 let sketch1;
  
-function setup(){
+function connect_sockets(){
   for (let i = 0; i < 4;i++){
     console.log( "ARRAY",IPconnection[i])
-
   }
-  console.log( "SOCKET        ",socketid)
-
-  switch (socketid) {
-    case IPconnection[0]:
-      sketch1 = new p5(phone1(color(100,200,0, 40)));
-      break;
-    case IPconnection[1]:
-      sketch1 = new p5(phone2(color(0,0,100, 40)));
-      break;
-    case IPconnection[2]:
-      sketch1 = new p5(phone3(color(100,0,0,40)));
-      break;
-    case IPconnection[3]:
-      sketch1 = new p5(phone4(color(0,50,0,40)));
-      break;
-      default:
-  }
+    console.log( "SOCKET        ",socketid);
 }
 
+
+
+
+OSCdingen(socket = io.connect())
+
+function setup(){
+  // const ;
+  
+  console.log(connected)
+
+  if (socket.id = socket.id){
+
+  }
+
+
+
+
+ 
+
+
+    // switch (socketid) {
+    //   case IPconnection[0]:
+    //     // sketch1 = new p5(phone1(color(100,200,0, 40)));
+    //     console.log("JA")
+    //     break;
+    //   case IPconnection[1]:
+    //     // sketch1 = new p5(phone2(color(0,0,100, 40)));
+    //     break;
+    //   case IPconnection[2]:
+    //     // sketch1 = new p5(phone3(color(100,0,0,40)));
+    //     break;
+    //   case IPconnection[3]:
+    //     // sketch1 = new p5(phone4(color(0,50,0,40)));
+    //     break;
+    //     default:
+    // }
+  }   
+
+
+
+
 function draw() { 
-  sketch1.OSC(scale1,scale2,scale3,scale4,snelheidGran,micInput); 
+  // sketch1.OSC(scale1,scale2,scale3,scale4,snelheidGran,micInput); 
 }
 
 function phone1(color) {
