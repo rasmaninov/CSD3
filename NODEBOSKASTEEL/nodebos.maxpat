@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 295.0, 87.0, 743.0, 779.0 ],
+		"rect" : [ 36.0, 87.0, 1370.0, 779.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -47,7 +47,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1037.499990105628967, 364.772723793983459, 50.0, 35.0 ],
-					"text" : "3.355612"
+					"text" : "-0.088359"
 				}
 
 			}
@@ -70,8 +70,8 @@
 					"numinlets" : 6,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 883.847047984600181, 280.752684354782104, 101.0, 22.0 ],
-					"text" : "scale 0 -100. 5. 0"
+					"patching_rect" : [ 883.847047984600181, 280.752684354782104, 108.0, 22.0 ],
+					"text" : "scale 0 -100. 2. -2."
 				}
 
 			}
@@ -83,23 +83,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 796.859574121814831, 247.976988554000854, 72.0, 22.0 ],
-					"text" : "-32.887763"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"border" : 0,
-					"filename" : "helpargs.js",
-					"id" : "obj-29",
-					"ignoreclick" : 1,
-					"jsarguments" : [ "fluid.loudness~" ],
-					"maxclass" : "jsui",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 1006.0, 542.0, 232.739517211914062, 39.0 ]
+					"text" : "-52.20898"
 				}
 
 			}
@@ -786,12 +770,6 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "helpargs.js",
-				"bootpath" : "C74:/help/resources",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "fluid.loudness~.mxo",
 				"type" : "iLaX"
 			}
@@ -800,8 +778,8 @@
 		"styles" : [ 			{
 				"name" : "max6box",
 				"default" : 				{
-					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"bgcolor" : [ 1.0, 1.0, 1.0, 0.5 ],
+					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"accentcolor" : [ 0.8, 0.839216, 0.709804, 1.0 ]
 				}
 ,

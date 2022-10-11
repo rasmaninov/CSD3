@@ -91,12 +91,12 @@ function phone1(color) {
   let yoff = 0;
   let sound = false;
   let mic;
-  let amount = 1000;
+  let amount = 100;
   let radius;
   let startRadius = 500;
   let modDepth;
   let movingA = [];
-  let movingSize = 100;
+  let movingSize = 400;
 
   let samp = [];
 
@@ -321,112 +321,7 @@ function phone3(color) {
 
   return (p) => {
     p.preload = () => {
-      samp = p.loadSound('audio_samples/cow.wav');
-    }
-
-    p.OSC = (OSC1,OSC2,OSC3,OSC4,OSC5,OSC6) => {
-      val1 = OSC1;
-      val2 = OSC2;
-      val3 = OSC3;
-      val4 = OSC4;
-      speed = OSC5;
-      micLevel = OSC6;
-    }
-
-    p.touchStarted = () => {
-      fullscreen();
-    }
-
-    p.setup = () => {
-      cnv = p.createCanvas(p.windowWidth, p.windowHeight)
-      cnv.touchStarted(userStartAudio);
-      cnv.mousePressed(userStartAudio);
-
-      for(i = 0; i < movingSize; i++){
-        movingA.push(0);
-      }
-    };
-    
-    p.draw = () => {
-      p.visuals();
-      p.granulair(); 
-    }
-
-
-    p.visuals = () => {
-      let sum = 0;
-
-      movingA.push(micLevel);
-      movingA.shift();
-      for(i = 0; i < movingA.length; i++){
-        sum += movingA[i];
-      }
-
-      modDepth = (sum / movingA.length) * 2;
-      if (modDepth > 1){
-        modDepth = 1;
-      }
-
-      radius = startRadius + (startRadius * modDepth);
-
-      cnv.stroke(0);
-      cnv.strokeWeight(1);
-      cnv.fill(color);
-      cnv.translate(width/2 + val3 , height/2 + val4);
-      p.beginShape();
-      for( i = 0.0 ; i <= TWO_PI; i += TWO_PI / amount){
-        noiseV = p.map(noise(cos(i)+1*modDepth, sin(i)+1*modDepth, yoff), 0.0, 1, 0, modDepth);
-
-        a = p.cos(-i) * radius * noiseV;
-        b = p.sin(-i) * radius * noiseV;
-
-
-        p.vertex(a * val1,b * val2);
-      }
-      p.endShape(CLOSE);
-      yoff += 0.005;
-    }
-    
-
-    p.granulair = () => {
-      if (frameCount % speed == 0){
-        samp.play();
-        samp.jump(random(3), 0.05)
-      }
-
-    }
-
-    p.wrap = (point) => {
-      if (point => speed) {
-        point = 0;
-      } 
-    }
-  };
-}
-
-function phone4(color) {
-  let yoff = 0;
-  let sound = false;
-  let mic;
-  let amount = 1000;
-  let radius;
-  let startRadius = 500;
-  let modDepth;
-  let movingA = [];
-  let movingSize = 100;
-
-  let samp = [];
-
-  let val1;
-  let val2;
-  let val3;
-  let val4;
-  let speed;
-  let micLevel;
-
-  return (p) => {
-    p.preload = () => {
-      samp = p.loadSound('audio_samples/lion.mp3');
+      samp = p.loadSound('audio_samples/bird.mp3');
     }
 
     p.OSC = (OSC1,OSC2,OSC3,OSC4,OSC5,OSC6) => {
@@ -509,3 +404,113 @@ function phone4(color) {
     }
   };
 }
+
+
+function phone4(color) {
+  let yoff = 0;
+  let sound = false;
+  let mic;
+  let amount = 1000;
+  let radius;
+  let startRadius = 500;
+  let modDepth;
+  let movingA = [];
+  let movingSize = 100;
+
+  let samp = [];
+
+  let val1;
+  let val2;
+  let val3;
+  let val4;
+  let speed;
+  let micLevel;
+
+  return (p) => {
+    p.preload = () => {
+      samp = p.loadSound('audio_samples/bird.mp3');
+    }
+
+    p.OSC = (OSC1,OSC2,OSC3,OSC4,OSC5,OSC6) => {
+      val1 = OSC1;
+      val2 = OSC2;
+      val3 = OSC3;
+      val4 = OSC4;
+      speed = OSC5;
+      micLevel = OSC6;
+    }
+
+    p.touchStarted = () => {
+      
+      fullscreen();
+    }
+
+    p.setup = () => {
+      cnv = p.createCanvas(p.windowWidth, p.windowHeight)
+      cnv.touchStarted(userStartAudio);
+      cnv.mousePressed(userStartAudio);
+
+      for(i = 0; i < movingSize; i++){
+        movingA.push(0);
+      }
+    };
+    
+    p.draw = () => {
+      p.visuals();
+      p.granulair(); 
+    }
+
+
+    p.visuals = () => {
+      let sum = 0;
+
+      movingA.push(micLevel);
+      movingA.shift();
+      for(i = 0; i < movingA.length; i++){
+        sum += movingA[i];
+      }
+
+      modDepth = (sum / movingA.length) * 2;
+      if (modDepth > 1){
+        modDepth = 1;
+      }
+
+      radius = startRadius + (startRadius * modDepth);
+
+      cnv.stroke(0);
+      cnv.strokeWeight(1);
+      cnv.fill(color);
+      cnv.translate(width/2 + val3 , height/2 + val4);
+      p.beginShape();
+      for( i = 0.0 ; i <= TWO_PI; i += TWO_PI / amount){
+        noiseV = p.map(noise(cos(i)+1*modDepth, sin(i)+1*modDepth, yoff), 0.0, 1, 0, modDepth);
+
+        a = p.cos(-i) * radius * noiseV;
+        b = p.sin(-i) * radius * noiseV;
+
+
+        p.vertex(a * val1,b * val2);
+      }
+      p.endShape(CLOSE);
+      yoff += 0.005;
+    }
+    
+
+    p.granulair = () => {
+      if (frameCount % speed == 0){
+        samp.play();
+        samp.jump(random(5), 0.05)
+      }
+
+    }
+
+    p.wrap = (point) => {
+      if (point => speed) {
+        point = 0;
+      } 
+    }
+  };
+}
+
+
+
