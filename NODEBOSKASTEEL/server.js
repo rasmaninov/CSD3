@@ -79,7 +79,10 @@ io.on('connection', (socket) => {
   socket.on('scale4', (msg) => {
     io.emit('scale4', msg)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 077c3349bb1bfba4819ae3ec41c298530676389d
   }) 
   socket.on('snelheidGran', (msg) => {
     io.emit('snelheidGran', msg)
@@ -87,7 +90,11 @@ io.on('connection', (socket) => {
 
   socket.on('micInput', (msg) => {
     io.emit('micInput', msg)
+<<<<<<< HEAD
 >>>>>>> mainScaling
+=======
+
+>>>>>>> 077c3349bb1bfba4819ae3ec41c298530676389d
   })
 });
 
@@ -117,8 +124,12 @@ maxApi.addHandler('scale4',(msg) => {
     sendSocket[i].emit('scale4',msg);
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 });
 =======
+=======
+
+>>>>>>> 077c3349bb1bfba4819ae3ec41c298530676389d
 }); 
 
 maxApi.addHandler('snelheidGran',(msg) => {
@@ -132,5 +143,8 @@ maxApi.addHandler('micInput',(msg) => {
     sendSocket[i].emit('micInput',msg);
   }
 }); 
+<<<<<<< HEAD
 
 >>>>>>> mainScaling
+=======
+>>>>>>> 077c3349bb1bfba4819ae3ec41c298530676389d

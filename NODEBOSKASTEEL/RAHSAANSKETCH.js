@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 let scale1 = 1;
 let scale2 = 1;
 let scale3 = 1;
@@ -144,3 +145,5 @@ function touchStarted(){
 
   }
 }
+=======
+>>>>>>> 077c3349bb1bfba4819ae3ec41c298530676389d
