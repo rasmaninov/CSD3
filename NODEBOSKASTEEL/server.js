@@ -16,7 +16,7 @@ const io = require('socket.io')(server);
 let clients = {};
 
 let all_divices = {};
-var IP = 0;
+var IP = 3;
 
 // maak een array met de IP addressen die van alle apperaten binnen komt
 // hiermee kunnen we onderscheiden van verschillende apperaten
@@ -45,12 +45,13 @@ io.on('connection', (socket) => {
   console.log("id 1:",socket.id);
 
   all_divices[IP] = socket.id;
-  IP = IP + 1;
-  if (IP > 0){
-    IP = 0;
+  IP = IP - 1;
+  if (IP < 0){
+    IP = 3;
   }
+
   socket.emit('phoneIDs', all_divices);
-  console.log("all IDs",all_divices);
+  // console.log("all IDs",all_divices);
 
   socket.on('phone',data => {
     console.log("id 2:",data);
@@ -77,6 +78,14 @@ io.on('connection', (socket) => {
 
   socket.on('scale4', (msg) => {
     io.emit('scale4', msg)
+  }) 
+  socket.on('snelheidGran', (msg) => {
+    io.emit('snelheidGran', msg)
+  })
+
+  socket.on('micInput', (msg) => {
+    io.emit('micInput', msg)
+
   })
 });
 
@@ -105,4 +114,17 @@ maxApi.addHandler('scale4',(msg) => {
   for (let i in sendSocket) {
     sendSocket[i].emit('scale4',msg);
   }
-});
+
+}); 
+
+maxApi.addHandler('snelheidGran',(msg) => {
+  for (let i in sendSocket) {
+    sendSocket[i].emit('snelheidGran',msg);
+  }
+}); 
+
+maxApi.addHandler('micInput',(msg) => {
+  for (let i in sendSocket) {
+    sendSocket[i].emit('micInput',msg);
+  }
+}); 
