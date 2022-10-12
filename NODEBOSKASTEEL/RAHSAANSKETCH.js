@@ -56,20 +56,21 @@ function setup() {
   for(i = 0; i < movingSize; i++){
     movingA.push(0.8);
   }
+<<<<<<< HEAD
   background(0);
+=======
+>>>>>>> mainScaling
 }
 
 
 
 function draw() {
-  scale(scale1)
-  visual();
+  scale(scale1,scale2)
+  visual(scale3,scale4);
 }
 
-function visual(){
-  let xStart, yStart;
+function visual(bignessXInput, bignessYInput){
   let sum = 0;
-
   micLevel = mic.getLevel() * 2;
   if (micLevel > 1){
     micLevel = 1;
@@ -86,6 +87,7 @@ function visual(){
   if (modDepth > 1){
     modDepth = 1;
   }
+<<<<<<< HEAD
   // modDepth = 0;
   // console.log('mod ' + modDepth);
   //
@@ -94,11 +96,19 @@ function visual(){
 
   // radius = startRadius;
   // console.log('radius ' + radius);
+=======
+
+  radius = startRadius + (startRadius * modDepth);
+>>>>>>> mainScaling
 
   stroke(255);
   strokeWeight(1);
+<<<<<<< HEAD
   fill(0,20);
   // fill(0);
+=======
+  fill(255,40);
+>>>>>>> mainScaling
   translate(width/2, height/2);
   beginShape();
   for( i = 0.0 ; i <= TWO_PI; i += TWO_PI / amount){
@@ -112,11 +122,9 @@ function visual(){
     b = sin(-i) * radius * noiseV;
 
 
-    vertex(a,b);
+    vertex(a * bignessXInput,b * bignessYInput);
   }
   endShape(CLOSE);
-  // console.log('noiseV' + noiseV);
-
   yoff += 0.005;
 }
 
