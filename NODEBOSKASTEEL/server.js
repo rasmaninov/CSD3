@@ -8,7 +8,7 @@ var path = require('path');
 
 // voor de connectie met MAX
 const maxApi = require("max-api");
- 
+
 // include socket
 const io = require('socket.io')(server);
 
@@ -58,7 +58,7 @@ io.on('connection', (socket) => {
     sendSocket[data] = clients[data];
   })
 
-  
+
   socket.on('disconnect',function(){
     console.log('disconnected');
   })
@@ -66,16 +66,16 @@ io.on('connection', (socket) => {
   // messages van sockets
   socket.on('scale1', (msg) => {
     io.emit('scale1', msg)
-  })  
-  
+  })
+
   socket.on('scale2', (msg) => {
     io.emit('scale2', msg)
-  }) 
+  })
 
   socket.on('scale3', (msg) => {
     io.emit('scale3', msg)
-  })  
-  
+  })
+
   socket.on('scale4', (msg) => {
     io.emit('scale4', msg)
   }) 
@@ -85,6 +85,7 @@ io.on('connection', (socket) => {
 
   socket.on('micInput', (msg) => {
     io.emit('micInput', msg)
+
   })
 });
 
@@ -95,24 +96,25 @@ maxApi.addHandler('scale1',(msg) => {
     sendSocket[i].emit('scale1',msg);
     // sendSocket[i].emit('poepje',msg);
   }
-});    
+});
 
 maxApi.addHandler('scale2',(msg) => {
   for (let i in sendSocket) {
     sendSocket[i].emit('scale2',msg);
   }
-}); 
+});
 
 maxApi.addHandler('scale3',(msg) => {
   for (let i in sendSocket) {
     sendSocket[i].emit('scale3',msg);
   }
-}); 
+});
 
 maxApi.addHandler('scale4',(msg) => {
   for (let i in sendSocket) {
     sendSocket[i].emit('scale4',msg);
   }
+
 }); 
 
 maxApi.addHandler('snelheidGran',(msg) => {
@@ -126,4 +128,3 @@ maxApi.addHandler('micInput',(msg) => {
     sendSocket[i].emit('micInput',msg);
   }
 }); 
-
